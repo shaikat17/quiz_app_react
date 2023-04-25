@@ -16,7 +16,7 @@ function App() {
     return <Loading />;
   }
 
-  return <h1>Hello</h1>;
+  return <h1>quiz app</h1>;
 }
 
 export default App;
