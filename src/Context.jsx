@@ -19,7 +19,7 @@ const AppContext = createContext();
 const AppProvider = ({ children }) => {
   const [waiting, setwaiting] = useState(true);
   const [loading, setLoading] = useState(false);
-  const [question, setQuestion] = useState([]);
+  const [questions, setQuestions] = useState([]);
   const [index, setIndex] = useState(0);
   const [correct, setCorrect] = useState(0);
   const [error, setError] = useState(false);
@@ -35,7 +35,7 @@ const AppProvider = ({ children }) => {
     if(response){
         const data = response.data.results
 if(data.length > 0) {
-    setQuestion(data)
+    setQuestions(data)
     setLoading(false)
     setwaiting(false)
     setError(false)
@@ -55,7 +55,7 @@ if(data.length > 0) {
 
   return (
     <AppContext.Provider
-      value={{ waiting, loading, question, index, correct, error, isModalOpen }}
+      value={{ waiting, loading, questions, index, correct, error, isModalOpen }}
     >
       {children}
     </AppContext.Provider>
