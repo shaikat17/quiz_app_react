@@ -7,7 +7,7 @@ import Modal from "./components/Modal";
 
 function App() {
 
-  const { waiting, loading, questions, correct, index} = useGlobalContext()
+  const { waiting, loading, questions, correct, index, nextQuestion} = useGlobalContext()
 
   if (waiting) {
     return <SetupForm />;
@@ -17,7 +17,7 @@ function App() {
     return <Loading />;
   }
 
-  const {question, incorrect_answers, correct_answer} = questions[0]
+  const {question, incorrect_answers, correct_answer} = questions[index]
 
   const answers = [...incorrect_answers, correct_answer]
 
@@ -25,7 +25,7 @@ function App() {
     {/* <Modal /> */}
     <section className="quiz">
       <p className="correct-answers">
-        Correct answers: {correct}/{index}
+        Correct answers: {correct}/{index+1}
       </p>
       <article className="container">
         <h2 dangerouslySetInnerHTML={{__html: question}} />
@@ -35,7 +35,7 @@ function App() {
         })}
       </div>
       </article>
-      <button className="next-question">next question</button>
+      <button className="next-question" onClick={nextQuestion}>next question</button>
     </section>
   </main>;
 }
