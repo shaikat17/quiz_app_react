@@ -54,6 +54,7 @@ if(data.length > 0) {
         const index = oldIndex + 1;
         if(index > questions.length - 1){
             // open modal
+            openModal()
             return 0;
         } else {
         return index
@@ -68,13 +69,21 @@ if(data.length > 0) {
     nextQuestion()
   }
 
+  const openModal = () => setIsModalOpen(true)
+
+  const closeModal = () => {
+    setwaiting(true)
+    setCorrect(0)
+    setIsModalOpen(false)
+  }
+
   useEffect(() => {
     fetchQuestion(tempUrl)
   },[])
 
   return (
     <AppContext.Provider
-      value={{ waiting, loading, questions, index, correct, error, isModalOpen, nextQuestion, checkAnswer }}
+      value={{ waiting, loading, questions, index, correct, error, isModalOpen, nextQuestion, checkAnswer, closeModal }}
     >
       {children}
     </AppContext.Provider>
