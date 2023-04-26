@@ -25,78 +25,93 @@ const AppProvider = ({ children }) => {
   const [error, setError] = useState(false);
   const [quiz, setQuiz] = useState({
     amount: 10,
-    category: 'sports',
-    difficulty: 'easy',
-  })
+    category: "sports",
+    difficulty: "easy",
+  });
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const fetchQuestion = async (url) => {
-    setLoading(true)
-    setwaiting(false)
+    setLoading(true);
+    setwaiting(false);
 
-    const response = await axios(url).catch(err => console.log(err))
+    const response = await axios(url).catch((err) => console.log(err));
 
-    if(response){
-        const data = response.data.results
-if(data.length > 0) {
-    setQuestions(data)
-    setLoading(false)
-    setwaiting(false)
-    setError(false)
-} else {
-    setwaiting(true)
-    setError(true)
-
-}
+    if (response) {
+      const data = response.data.results;
+      if (data.length > 0) {
+        setQuestions(data);
+        setLoading(false);
+        setwaiting(false);
+        setError(false);
+      } else {
+        setwaiting(true);
+        setError(true);
+      }
     } else {
-        setwaiting(true)
+      setwaiting(true);
     }
-  }
+  };
 
   const nextQuestion = () => {
-    setIndex(oldIndex => {
-        const index = oldIndex + 1;
-        if(index > questions.length - 1){
-            // open modal
-            openModal()
-            return 0;
-        } else {
-        return index
-    }
-    })
-  }
+    setIndex((oldIndex) => {
+      const index = oldIndex + 1;
+      if (index > questions.length - 1) {
+        // open modal
+        openModal();
+        return 0;
+      } else {
+        return index;
+      }
+    });
+  };
 
-  const checkAnswer = value => {
-    if(value) {
-      setCorrect(prev => prev + 1)
+  const checkAnswer = (value) => {
+    if (value) {
+      setCorrect((prev) => prev + 1);
     }
-    nextQuestion()
-  }
+    nextQuestion();
+  };
 
-  const openModal = () => setIsModalOpen(true)
+  const openModal = () => setIsModalOpen(true);
 
   const closeModal = () => {
-    setwaiting(true)
-    setCorrect(0)
-    setIsModalOpen(false)
-  }
+    setwaiting(true);
+    setCorrect(0);
+    setIsModalOpen(false);
+  };
 
   // useEffect(() => {
   //   fetchQuestion(tempUrl)
   // },[])
 
   const handleChange = (e) => {
-    console.log(e)
-  }
+    const name = e.target.name;
+    const value = e.target.value;
+    setQuiz({ ...quiz, [name]: value });
+  };
 
   const handleSubmit = (e) => {
-    e.preventDefault()
-  }
+    e.preventDefault();
+  };
 
   return (
     <AppContext.Provider
-      value={{ waiting, loading, questions, index, correct, error, isModalOpen, nextQuestion, checkAnswer, closeModal, handleChange, handleSubmit, quiz }}
+      value={{
+        waiting,
+        loading,
+        questions,
+        index,
+        correct,
+        error,
+        isModalOpen,
+        nextQuestion,
+        checkAnswer,
+        closeModal,
+        handleChange,
+        handleSubmit,
+        quiz,
+      }}
     >
       {children}
     </AppContext.Provider>
