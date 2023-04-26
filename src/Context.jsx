@@ -23,6 +23,11 @@ const AppProvider = ({ children }) => {
   const [index, setIndex] = useState(0);
   const [correct, setCorrect] = useState(0);
   const [error, setError] = useState(false);
+  const [quiz, setQuiz] = useState({
+    amount: 10,
+    category: 'sports',
+    difficulty: 'easy',
+  })
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -77,13 +82,21 @@ if(data.length > 0) {
     setIsModalOpen(false)
   }
 
-  useEffect(() => {
-    fetchQuestion(tempUrl)
-  },[])
+  // useEffect(() => {
+  //   fetchQuestion(tempUrl)
+  // },[])
+
+  const handleChange = (e) => {
+    console.log(e)
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+  }
 
   return (
     <AppContext.Provider
-      value={{ waiting, loading, questions, index, correct, error, isModalOpen, nextQuestion, checkAnswer, closeModal }}
+      value={{ waiting, loading, questions, index, correct, error, isModalOpen, nextQuestion, checkAnswer, closeModal, handleChange, handleSubmit, quiz }}
     >
       {children}
     </AppContext.Provider>
