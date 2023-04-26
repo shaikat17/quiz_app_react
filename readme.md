@@ -14,3 +14,6 @@ Setup Page
 
 Quiz Question and Answer
 ![image_2](/project_image/quiz_app_react_2.jpeg)
+
+Result Modal Section
+![image_3](/project_image/quiz_app_react_3.jpeg)
