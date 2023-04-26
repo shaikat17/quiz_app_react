@@ -61,13 +61,20 @@ if(data.length > 0) {
     })
   }
 
+  const checkAnswer = value => {
+    if(value) {
+      setCorrect(prev => prev + 1)
+    }
+    nextQuestion()
+  }
+
   useEffect(() => {
     fetchQuestion(tempUrl)
   },[])
 
   return (
     <AppContext.Provider
-      value={{ waiting, loading, questions, index, correct, error, isModalOpen, nextQuestion }}
+      value={{ waiting, loading, questions, index, correct, error, isModalOpen, nextQuestion, checkAnswer }}
     >
       {children}
     </AppContext.Provider>
